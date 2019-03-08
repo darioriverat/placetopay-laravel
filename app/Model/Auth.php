@@ -2,6 +2,11 @@
 
 namespace App\Model;
 
+/**
+ * Auth class
+ *
+ * Estructura que contiene toda la información acerca de la transacción para ser procesada
+ */
 class Auth extends AbstractModel
 {
     /**

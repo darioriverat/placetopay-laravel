@@ -10,7 +10,7 @@ namespace App\Model;
 class RedirectRequest extends AbstractModel
 {
     /**
-     * Estructura para realizar la autenticación del la petición REST
+     * Objeto de autenticación del la petición REST
      *
      * @var Auth
      */

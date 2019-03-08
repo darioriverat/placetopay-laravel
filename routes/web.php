@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/formulario', 'App\\PagosController@index');
+Route::post('/crearTransaccion', 'App\\PagosController@crearTransaccion');

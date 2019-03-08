@@ -14,7 +14,7 @@ class RedirectResponse extends AbstractModel
      *
      * @var Status
      */
-    public $Status;
+    public $status;
 
     /**
      * Referencia única de esta sesión
