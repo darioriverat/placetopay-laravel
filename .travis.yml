@@ -1,0 +1,29 @@
+git:
+  depth: false
+
+# blocklist
+branches:
+  except:
+  - legacy
+  - experimental
+
+# safelist
+branches:
+  only:
+  - master
+  - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+
+language: php
+
+matrix:
+  include:
+    - php: 7.2
+
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS placetopayweb; USE placetopayweb';
+
+install:
+  - travis_retry composer install
+
+services:
+  - mysql

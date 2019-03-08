@@ -13,6 +13,7 @@ use App\Model\PaymentRequest;
 use App\Model\RedirectRequest;
 use App\Model\RedirectResponse;
 use GuzzleHttp\Exception\GuzzleException;
+use App\RedirectionRequest;
 
 class PagosController extends Controller
 {
@@ -108,6 +109,39 @@ class PagosController extends Controller
             $response = new RedirectResponse($object_array);
 
             $processUrl = $response->processUrl;
+
+            $req = new RedirectionRequest;
+
+            $req->requestId    = $response->requestId;
+            $req->locale       = $request->locale;
+            $req->documentType = $request->buyer->documentType;
+            $req->document     = $request->buyer->document;
+            $req->name         = $request->buyer->name;
+            $req->surname      = $request->buyer->surname;
+            $req->company      = $request->buyer->company;
+            $req->email        = $request->buyer->email;
+            $req->street       = $request->buyer->address->street;
+            $req->city         = $request->buyer->address->city;
+            $req->state        = $request->buyer->address->state;
+            $req->postalCode   = $request->buyer->address->postalCode;
+            $req->country      = $request->buyer->address->country;
+            $req->phone        = $request->buyer->address->phone;
+            $req->mobile       = $request->buyer->mobile;
+            $req->reference    = $request->payment->reference;
+            $req->description  = $request->payment->description;
+            $req->currency     = $request->payment->amount->currency;
+            $req->total        = $request->payment->amount->total;
+            $req->expiration   = $request->expiration;
+            $req->returnUrl    = $request->returnUrl;
+            $req->ipAddress    = $request->ipAddress;
+            $req->userAgent    = $request->userAgent;
+            $req->processUrl   = $response->processUrl;
+            $req->status       = $response->status->status;
+            $req->reason       = $response->status->reason;
+            $req->message      = $response->status->message;
+            $req->date         = $response->status->date;
+
+            $req->save();
         }
         catch (\Exception $e)
         {

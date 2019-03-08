@@ -79,7 +79,7 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="postalCode">Código postal</label>
-                    <input type="text" class="form-control" id="postalCode" name="postalCode" maxlength="100" />
+                    <input type="text" class="form-control" id="postalCode" name="postalCode" maxlength="10" />
                 </div>
                 <div class="form-group col-md-3">
                     <label for="street">Dirección</label>
