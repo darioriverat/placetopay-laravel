@@ -59,6 +59,48 @@ class Transaction extends AbstractModel
     public $authorization;
 
     /**
+     * ---
+     *
+     * @var string
+     */
+    public $reference;
+
+    /**
+     * ---
+     *
+     * @var string
+     */
+    public $description;
+
+    /**
+     * ---
+     *
+     * @var string
+     */
+    public $receipt;
+
+    /**
+     * ---
+     *
+     * @var string
+     */
+    public $franchise;
+
+    /**
+     * ---
+     *
+     * @var string
+     */
+    public $refunded;
+
+    /**
+     * ---
+     *
+     * @var AmountDiscount
+     */
+    public $discount;
+
+    /**
      * Campos adicionales del procesador
      *
      * @var NameValuePairs

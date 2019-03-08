@@ -12,7 +12,7 @@ class NameValuePairs extends AbstractModel
     /**
      * Referencia única para la solicitud de pago
      *
-     * @var NameValuePairs[]
+     * @var NameValuePair[]
      */
     public $item;
 }

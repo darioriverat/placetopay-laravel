@@ -103,13 +103,13 @@
         <div class="form-row">
             <div class="form-group col-md-2">
                 <label for="reference">Referencia</label>
-                <span class="form-control text-info">2675</span>
-                <input type="hidden" class="form-control" id="reference" name="reference" value="2675" />
+                <span class="form-control text-info"><?= time() ?></span>
+                <input type="hidden" class="form-control" id="reference" name="reference" value="<?= time() ?>" />
             </div>
             <div class="form-group col-md-4">
                 <label for="description">Concepto</label>
-                <span class="form-control text-info">Pago PSE - pruebas técnicas</span>
-                <input type="hidden" class="form-control" id="description" name="description" value="Pago PSE - pruebas técnicas" />
+                <span class="form-control text-info">Pago Web Checkout - pruebas técnicas</span>
+                <input type="hidden" class="form-control" id="description" name="description" value="Pago Web Checkout - pruebas técnicas" />
             </div>
             <div class="form-group col-md-3">
                 <label for="total">Valor a pagar</label>

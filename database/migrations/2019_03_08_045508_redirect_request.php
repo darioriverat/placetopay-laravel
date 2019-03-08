@@ -14,7 +14,8 @@ class RedirectRequest extends Migration
     public function up()
     {
         Schema::create('redirect_request', function (Blueprint $table) {
-            $table->increments('requestId');
+            $table->integer('id');
+            $table->integer('requestId');
             $table->string('locale', 5);
             $table->string('documentType', 2);
             $table->string('document', 12);
@@ -34,7 +35,6 @@ class RedirectRequest extends Migration
             $table->string('currency', 3);
             $table->decimal('total', 18, 2);
             $table->string('expiration', 25);
-            $table->string('returnUrl', 300);
             $table->string('ipAddress', 15);
             $table->string('userAgent', 150);
             $table->string('processUrl', 300);

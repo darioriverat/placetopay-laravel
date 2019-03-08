@@ -18,5 +18,5 @@ class RedirectionRequest extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'requestId';
+    protected $primaryKey = 'id';
 }
