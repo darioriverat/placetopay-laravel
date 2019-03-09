@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h2><i class="fas fa-shopping-cart"></i> Pago</h2>
+<h2><i class="fas fa-shopping-cart"></i> Formulario de compra</h2>
 
 <div id="failureMessage"></div>
 

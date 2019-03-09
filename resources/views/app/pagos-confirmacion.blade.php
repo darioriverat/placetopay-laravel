@@ -36,7 +36,10 @@
         </tr>
         <tr>
             <th>Valor</th>
-            <td><?= $information->payment[0]->amount->from->currency ?> <?= $information->payment[0]->amount->to->total ?></td>
+            <td>
+                <?= $information->payment[0]->amount->from->currency ?>
+                <?= number_format($information->payment[0]->amount->to->total, 2) ?>
+            </td>
         </tr>
         <tr>
             <th>IVA</th>
@@ -80,5 +83,13 @@
         </tr>
     </tbody>
 </table>
+
+<?php if ($information->payment[0]->status->status == 'APPROVED'): ?>
+
+    <a href="<?= url('/') ?>" class="btn btn-success">
+        <i class="fas fa-undo-alt"></i> Voler al inicio
+    </a>
+
+<?php endif; ?>
 
 @endsection('content')

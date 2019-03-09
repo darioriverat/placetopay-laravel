@@ -23,7 +23,7 @@
                     <td>{{ $request->date }}</td>
                     <td>{{ $request->reference }}</td>
                     <td>{{ $request->status }}</td>
-                    <td>{{ $request->currency }} {{ $request->total }}</td>
+                    <td>{{ $request->currency }} {{ number_format($request->total, 2) }}</td>
                 </tr>
             @endforeach
         </tbody>
