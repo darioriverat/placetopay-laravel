@@ -102,32 +102,58 @@ class PagosController extends Controller
 
             $object_array->request->buyer->address = new Address($object_array->request->buyer->address);
             $object_array->request->buyer = new Person($object_array->request->buyer);
-            $object_array->request->payer->address = new Address($object_array->request->payer->address);
-            $object_array->request->payer = new Person($object_array->request->payer);
 
-            foreach ($object_array->request->fields as $key => $field)
-                $object_array->request->fields[$key] = new NameValuePair($field);
+            /*
+             * Validaciones sobre la consulta del pago mientras está en estado PENDING.
+             *
+             * Antes de realizarse el intento de pago en pasarela cualquier consulta al webservice
+             * del estado de la misma no devolverá los siguientes objetos en formato JSON, por tanto
+             * tampoco existen en la variable $object_array.
+             *
+             * request->payer
+             * request->fields
+             * request->payment
+             * payment
+             */
 
-            $object_array->request->fields = new NameValuePairs(["item" => $object_array->request->fields]);
-
-            $object_array->request->payment->amount = new Amount($object_array->request->payment->amount);
-            $object_array->request->payment = new Transaction($object_array->request->payment);
-
-            foreach ($object_array->payment as $key => $payment)
+            if (!is_null($payer = $object_array->request->payer ?? null))
             {
-                $object_array->payment[$key]->status = new Status($object_array->payment[$key]->status);
-                $object_array->payment[$key]->amount->from = new AmountBase($object_array->payment[$key]->amount->from);
-                $object_array->payment[$key]->amount->to = new AmountBase($object_array->payment[$key]->amount->to);
-                $object_array->payment[$key]->amount = new AmountConversion($object_array->payment[$key]->amount);
-                $object_array->payment[$key]->discount = new AmountDiscount($object_array->payment[$key]->discount);
+                $object_array->request->payer->address = new Address($object_array->request->payer->address);
+                $object_array->request->payer = new Person($object_array->request->payer);
+            }
 
-                foreach ($object_array->payment[$key]->processorFields as $k => $field)
-                    $object_array->payment[$key]->processorFields[$k] = new NameValuePair($field);
+            if (!is_null($fileds = $object_array->request->fields ?? null))
+            {
+                foreach ($object_array->request->fields as $key => $field)
+                    $object_array->request->fields[$key] = new NameValuePair($field);
 
-                $object_array->payment[$key]->processorFields =
-                    new NameValuePairs(["item" => $object_array->payment[$key]->processorFields]);
+                $object_array->request->fields = new NameValuePairs(["item" => $object_array->request->fields]);
+            }
 
-                $object_array->payment[$key] = new Transaction($object_array->payment[$key]);
+            if (!is_null($payer = $object_array->request->payment ?? null))
+            {
+                $object_array->request->payment->amount = new Amount($object_array->request->payment->amount);
+                $object_array->request->payment = new Transaction($object_array->request->payment);
+            }
+
+            if (!is_null($payer = $object_array->payment ?? null))
+            {
+                foreach ($object_array->payment as $key => $payment)
+                {
+                    $object_array->payment[$key]->status = new Status($object_array->payment[$key]->status);
+                    $object_array->payment[$key]->amount->from = new AmountBase($object_array->payment[$key]->amount->from);
+                    $object_array->payment[$key]->amount->to = new AmountBase($object_array->payment[$key]->amount->to);
+                    $object_array->payment[$key]->amount = new AmountConversion($object_array->payment[$key]->amount);
+                    $object_array->payment[$key]->discount = new AmountDiscount($object_array->payment[$key]->discount);
+
+                    foreach ($object_array->payment[$key]->processorFields as $k => $field)
+                        $object_array->payment[$key]->processorFields[$k] = new NameValuePair($field);
+
+                    $object_array->payment[$key]->processorFields =
+                        new NameValuePairs(["item" => $object_array->payment[$key]->processorFields]);
+
+                    $object_array->payment[$key] = new Transaction($object_array->payment[$key]);
+                }
             }
 
             if (is_object($object_array->subscription))
@@ -146,10 +172,15 @@ class PagosController extends Controller
 
             $object_array->request = new RedirectRequest($object_array->request);
             $information = new RedirectInformation($object_array);
+
+            # NO TIENE AUTORIZACIÓN/CUS
+            if ($information->status->status == 'PENDING')
+                throw new \Exception("Transacción no completada");
         }
         catch (\Exception $e)
         {
-            echo($e->getMessage());
+            $message = $e->getMessage();
+            return view('error', compact('message'));
         }
 
         return view('app.pagos-confirmacion', compact('information'));
@@ -278,7 +309,8 @@ class PagosController extends Controller
         }
         catch (\Exception $e)
         {
-            echo($e->getMessage());
+            $message = $e->getMessage();
+            return view('error', compact('message'));
         }
 
         return view('app.pagos-crearTransaccion', compact('processUrl'));

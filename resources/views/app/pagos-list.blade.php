@@ -15,6 +15,7 @@
                 <th>Referencia</th>
                 <th>Estado</th>
                 <th>Valor</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,11 @@
                     <td>{{ $request->reference }}</td>
                     <td>{{ $request->status }}</td>
                     <td>{{ $request->currency }} {{ number_format($request->total, 2) }}</td>
+                    <td>
+                        <a href="{{ url('/confirmacion') .'/'. $request->id }}" class="btn btn-primary btn-sm">
+                            Ver confirmación
+                        </a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

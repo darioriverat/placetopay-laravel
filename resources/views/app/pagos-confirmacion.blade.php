@@ -90,6 +90,17 @@
         <i class="fas fa-undo-alt"></i> Voler al inicio
     </a>
 
+<?php elseif ($information->payment[0]->status->status == 'PENDING'): ?>
+
+    En este momento su orden de compra #<?= $information->payment[0]->reference ?> presenta
+    un proceso de pago cuya transacción se encuentra PENDIENTE de recibir
+    confirmación por parte de su entidad financiera, por favor espere unos minutos y vuelva
+    a consultar más tarde para verificar si su pago fue confirmado de forma exitosa. Si
+    desea mayor información sobre el estado actual de su operación puede comunicarse a
+    nuestras líneas de atención al cliente <strong>TELEFONO CONTACTO</strong> o enviar un correo
+    electrónico a <strong>EMAIL</strong> y preguntar por el estado de la transacción:
+    #<?= $information->payment[0]->authorization ?>***.
+
 <?php endif; ?>
 
 @endsection('content')
