@@ -28,7 +28,14 @@ Para instalar las dependencias ejecute desde consola el siguiente comando en la 
 composer install
 ```
 
-Instale la base de datos mediante el siguiente comando
+Cree la base de datos para la aplicación desde la consola sql
+
+```bash
+mysqli -u root -p
+create database placetopayweb
+```
+
+Finalmente cree el database schema ejecutanto las migraciones
 
 ```bash
 php artisan migrate
