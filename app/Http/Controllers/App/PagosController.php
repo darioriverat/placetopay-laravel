@@ -153,6 +153,24 @@ class PagosController extends Controller
                         new NameValuePairs(["item" => $object_array->payment[$key]->processorFields]);
 
                     $object_array->payment[$key] = new Transaction($object_array->payment[$key]);
+
+                    /*
+                     * Actualización de estado de la transacción
+                     *
+                     * Si retorna directamente de la página de la pasarela actualiza el registro de manera instantánea
+                     * para poder ser consultado por la vista de transacciones
+                     */
+
+                    $req->payment_status        = $object_array->payment[$key]->status->status;
+                    $req->payment_reason        = $object_array->payment[$key]->status->reason;
+                    $req->payment_message       = $object_array->payment[$key]->status->message;
+                    $req->payment_date          = $object_array->payment[$key]->status->date;
+                    $req->payment_reference     = $object_array->payment[$key]->reference;
+                    $req->payment_authorization = $object_array->payment[$key]->authorization;
+                    $req->payment_currency      = $object_array->payment[$key]->amount->from->currency;
+                    $req->payment_total         = $object_array->payment[$key]->amount->from->total;
+
+                    $req->save();
                 }
             }
 

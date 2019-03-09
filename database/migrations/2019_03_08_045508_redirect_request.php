@@ -42,6 +42,14 @@ class RedirectRequest extends Migration
             $table->string('reason', 3);
             $table->string('message', 200);
             $table->string('date', 25);
+            $table->string('payment_status', 18)->nullable();
+            $table->string('payment_reason', 3)->nullable();
+            $table->string('payment_message', 200)->nullable();
+            $table->string('payment_date', 200)->nullable();
+            $table->string('payment_reference', 30)->nullable();
+            $table->string('payment_authorization', 20)->nullable();
+            $table->string('payment_currency', 3)->nullable();
+            $table->decimal('payment_total', 18, 2)->nullable();
             $table->timestamps();
         });
     }

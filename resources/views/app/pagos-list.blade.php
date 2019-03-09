@@ -13,18 +13,20 @@
             <tr>
                 <th>Fecha y hora</th>
                 <th>Referencia</th>
+                <th>Autorización/CUS</th>
                 <th>Estado</th>
                 <th>Valor</th>
-                <th>Acciones</th>
+                <th>Detalle</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($requests as $request)
                 <tr>
-                    <td>{{ $request->date }}</td>
-                    <td>{{ $request->reference }}</td>
-                    <td>{{ $request->status }}</td>
-                    <td>{{ $request->currency }} {{ number_format($request->total, 2) }}</td>
+                    <td>{{ $request->payment_date }}</td>
+                    <td>{{ $request->payment_reference }}</td>
+                    <td>{{ $request->payment_authorization }}</td>
+                    <td>{{ $request->payment_status }}</td>
+                    <td>{{ $request->payment_currency }} {{ number_format($request->payment_total, 2) }}</td>
                     <td>
                         <a href="{{ url('/confirmacion') .'/'. $request->id }}" class="btn btn-primary btn-sm">
                             Ver confirmación
