@@ -43,7 +43,7 @@ class PagosController extends Controller
      */
     public function list()
     {
-        $qb = RedirectionRequest::whereNotNull('requestId');
+        $qb = RedirectionRequest::whereNotNull('payment_authorization');
 
         $requests = $qb->orderBy('date', 'desc')
             ->limit(5)
